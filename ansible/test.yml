@@ -12,8 +12,9 @@
     - name: debug
       debug:
         msg: "{{ files_to_copy }}"
-    # - name: release
-    #   copy:
-    #     src: "{{ item.path }}"
-    #     dest: "/var/www/html/{{ item.path }}"
-    #   with_items: "{{ files_to_copy.results | map(attribute='files') | list }}"
+
+    - name: release
+      copy:
+        src: "{{ item.path }}"
+        dest: "/var/www/html/{{ item.path.replace({{ playbook_dir }}/release_dir, '') }}"
+      with_items: "{{ files_to_copy.files | map(attribute='files') | list }}"
