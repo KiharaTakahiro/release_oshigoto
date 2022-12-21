@@ -10,10 +10,7 @@
       delegate_to: localhost
 
     - name: release
-      become: true
       copy:
         src: "{{ item.path }}"
         dest: "/var/www/html/{{ item.path.replace(playbook_dir + '/release_dir', '') }}"
-        owner: event
-        group: event
       with_items: '{{ files_to_copy.files | selectattr("path", "defined") | list }}'
