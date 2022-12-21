@@ -1,22 +1,12 @@
 - hosts: localhost
   gather_facts: false
   tasks:
-    - name: "ローカルのテンプレートファイル一覧を取得"
-      find:
-        paths: "/var/lib/jenkins/workspace/release/test2/ansible/release_dir/"
-        patterns: "*"
-        file_type: "file"
-      register: "_template_ansible_server_conf_files"
-      delegate_to: "localhost"
-      run_once: "true"
-    - name: "ローカルのテンプレートファイル名のみをカンマ区切りで取得"
-      set_fact:
-        _template_ansible_server_conf_filename: "{% for filename in _template_ansible_server_conf_files.files | map(attribute='path') | list %}{{ filename | basename | regex_replace('\\.j2$','') }}{% if not loop.last %},{% endif %}{% endfor %}"
-    - name: "ローカルのファイル名をリスト化して取得"
-      set_fact:
-        template_ansible_server_conf_filename:
-          "{{ _template_ansible_server_conf_filename.split(',') }}"
-
-    - name: ファイル一覧が取得できていることを確認する
-      debug:
-        msg: "{{ template_ansible_server_conf_filename }}"
+    - name: copy files
+      copy:
+        src: "{{ item }}"
+        dest: /var/www/html
+        owner: root
+        group: root
+        mode: 0644
+      with_fileglob:
+        - ./release_dir/*
