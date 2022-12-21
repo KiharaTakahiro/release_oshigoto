@@ -14,9 +14,11 @@ pipeline {
             steps {
                 sh """
                   rm -rf ansible/release_dir/
+                  rm -rf event/
                   mkdir ansible/release_dir
                   git clone https://github.com/KiharaTakahiro/event.git
                   mv event/ ansible/release_dir/
+                  ls -l ansible/release_dir/
                   cd ansible
                   ansible-playbook ${params.CHECK_MODE} test.yml
                 """
