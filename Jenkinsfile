@@ -13,6 +13,8 @@ pipeline {
             }
             steps {
                 sh """
+                  rm -rf ansible/release_dir/
+                  mkdir ansible/release_dir
                   git clone https://github.com/KiharaTakahiro/event.git
                   mv event/ ansible/release_dir/
                   cd ansible
