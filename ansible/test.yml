@@ -16,5 +16,5 @@
     - name: release
       copy:
         src: "{{ item.path }}"
-        dest: "/var/www/html/{{ item.path.replace(playbook_dir + "/release_dir", '') }}"
+        dest: "/var/www/html/{{ item.path.replace(playbook_dir + '/release_dir', '') }}"
       with_items: "{{ files_to_copy.files | map(attribute='files') | list }}"
