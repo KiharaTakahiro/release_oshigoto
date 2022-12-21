@@ -2,11 +2,11 @@
   gather_facts: false
   tasks:
     - name: copy files
-      copy:
-        src: "{{ item }}"
-        dest: /var/www/html
-        owner: root
-        group: root
-        mode: 0644
+      set_fact:
+        release_file: "{{ items }}"
       with_fileglob:
         - ./release_dir/*
+    
+    - name: debug
+      debug:
+        msg: "{{ release_file }}"
