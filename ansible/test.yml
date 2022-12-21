@@ -3,7 +3,7 @@
   tasks:
     - name: "ローカルのテンプレートファイル一覧を取得"
       find:
-        paths: "ansible/release_dir/"
+        paths: "/var/lib/jenkins/workspace/release/test2/ansible/release_dir/"
         patterns: "*"
         file_type: "file"
       register: "_template_ansible_server_conf_files"
