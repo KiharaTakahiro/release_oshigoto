@@ -10,6 +10,7 @@
       delegate_to: localhost
 
     - name: release
+      become: true
       copy:
         src: "{{ item.path }}"
         dest: "/var/www/html/{{ item.path.replace(playbook_dir + '/release_dir', '') }}"
