@@ -10,6 +10,8 @@ pipeline {
             }
             steps {
                 sh """
+                  git clone https://github.com/KiharaTakahiro/event.git
+                  mv event/ ansible/release_dir/
                   cd ansible
                   ansible-playbook test.yml
                 """

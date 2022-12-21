@@ -1,12 +1,22 @@
 - hosts: localhost
   gather_facts: false
   tasks:
+    - name: "ローカルのテンプレートファイル一覧を取得"
+      find:
+        paths: "ansible/release_dir/"
+        patterns: "*"
+        file_type: "file"
+      register: "_template_ansible_server_conf_files"
+      delegate_to: "localhost"
+      run_once: "true"
+    - name: "ローカルのテンプレートファイル名のみをカンマ区切りで取得"
+      set_fact:
+        _template_ansible_server_conf_filename: "{% for filename in _template_ansible_server_conf_files.files | map(attribute='path') | list %}{{ filename | basename | regex_replace('\\.j2$','') }}{% if not loop.last %},{% endif %}{% endfor %}"
+    - name: "ローカルのファイル名をリスト化して取得"
+      set_fact:
+        template_ansible_server_conf_filename:
+          "{{ _template_ansible_server_conf_filename.split(',') }}"
 
-   - shell: hostname
-     register: r_hostname
-   - debug: { var: r_hostname.stdout }
-
-
-   - debug: { var: ansible_connection }
-   - debug: { var: ansible_playbook_python }
-   - debug: { var: ansible_python_interpreter }
+    - name: ファイル一覧が取得できていることを確認する
+      debug:
+        msg: "{{ template_ansible_server_conf_filename }}"
