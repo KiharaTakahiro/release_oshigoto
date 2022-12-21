@@ -3,11 +3,14 @@
   tasks:
     - name: find files.
       find:
-        paths: "./release_dir"
+        paths: "{{ playbook_dir }}/release_dir"
         recurse: true
         patterns: "*" #正規表現で検索条件をかく
       register: files_to_copy
+      delegate_to: localhost
 
-    - name: debug msg
-      debug:
-        msg: "{{files_to_copy}}"
+    - name: release
+      copy:
+        src: "{{ item.path }}"
+        dest: "/var/www/html/{{ item.path }}"
+      with_items: "{{ files_to_copy.results | map(attribute='files') | list }}"
