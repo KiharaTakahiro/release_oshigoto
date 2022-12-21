@@ -10,7 +10,8 @@ pipeline {
             }
             steps {
                 sh """
-                  ansible-playbook /ansible/test.yml
+                  cd ansible
+                  ansible-playbook test.yml
                 """
             }
         }

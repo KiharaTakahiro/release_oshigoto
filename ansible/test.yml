@@ -1,0 +1,12 @@
+- hosts: localhost
+  gather_facts: false
+  tasks:
+
+   - shell: hostname
+     register: r_hostname
+   - debug: { var: r_hostname.stdout }
+
+
+   - debug: { var: ansible_connection }
+   - debug: { var: ansible_playbook_python }
+   - debug: { var: ansible_python_interpreter }
