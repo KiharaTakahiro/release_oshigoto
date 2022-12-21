@@ -9,12 +9,8 @@
       register: files_to_copy
       delegate_to: localhost
 
-    - name: debug
-      debug:
-        msg: "{{ files_to_copy }}"
-
     - name: release
       copy:
         src: "{{ item.path }}"
         dest: "/var/www/html/{{ item.path.replace(playbook_dir + '/release_dir', '') }}"
-      with_items: "{{ files_to_copy.files | select('in', path) | list }}"
+      with_items: '{{ files_to_copy.files | select("in", path) | list }}'
