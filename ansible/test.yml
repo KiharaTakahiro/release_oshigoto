@@ -5,7 +5,8 @@
       set_fact:
         release_file: "{{ items }}"
       with_fileglob:
-        - ./release_dir/*
+        - ./release_dir/*  
+      delegate_to: localhost
     
     - name: debug
       debug:
