@@ -3,7 +3,7 @@
   tasks:
     - name: copy files
       set_fact:
-        release_file: "{{ items }}"
+        release_file: "{{ item }}"
       with_fileglob:
         - ./release_dir/*  
       delegate_to: localhost
