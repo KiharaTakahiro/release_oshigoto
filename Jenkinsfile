@@ -19,6 +19,7 @@ pipeline {
                   git clone https://github.com/KiharaTakahiro/event.git
                   mv event/ ansible/release_dir/
                   ls -l ansible/release_dir/
+                  pwd
                   cd ansible
                   ansible-playbook ${params.CHECK_MODE} test.yml
                 """
