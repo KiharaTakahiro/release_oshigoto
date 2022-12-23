@@ -3,7 +3,7 @@
   tasks:
     - name: find files.
       find:
-        paths: "{{ playbook_dir }}/release_dir"
+        paths: "{{ playbook_dir }}/release_dir/event/app"
         recurse: true
         patterns: "*" #正規表現で検索条件をかく
       register: files_to_copy
